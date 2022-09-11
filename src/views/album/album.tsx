@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import FloatingButton from './floatingButton';
+import {useAlbum} from '../../contexts/useAlbum';
 import colors from '../../utils/colors';
 import {capitalizeText, dimensions} from '../../utils/helpers';
 import {AlbumType, PicturesType} from '../../utils/realm/schemas';
-import Views from '../../utils/enums/views';
+import FloatingButton from './floatingButton';
 import PictureModal from './pictureModal';
 
 const BOX_SIZE = dimensions.width * 0.3;
@@ -20,16 +20,22 @@ const BOX_SIZE = dimensions.width * 0.3;
 function Album() {
   const navigation = useNavigation<any>();
   const route = useRoute();
-  const {album} = route.params as {album: AlbumType};
+  const {albums} = useAlbum();
+  const {albumId} = route.params as {albumId: number};
+  const [album, setAlbum] = useState<AlbumType>();
 
   const [modalPicture, setModalPicture] = useState(false);
   const [picture, setPicture] = useState<PicturesType>();
 
   useEffect(() => {
-    if (album.name) {
-      navigation.setOptions({
-        title: capitalizeText(album.name),
-      });
+    if (albumId) {
+      const foundAlbum = albums.find(item => item._id === albumId);
+      if (foundAlbum) {
+        navigation.setOptions({
+          title: capitalizeText(foundAlbum.name),
+        });
+        setAlbum(foundAlbum);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,13 +58,13 @@ function Album() {
 
   return (
     <View style={styles.container}>
-      {!album.pictures?.length && (
+      {!album?.pictures?.length && (
         <View style={styles.emptyyBox}>
           <Text style={styles.emptyText}>No pictures in this album</Text>
         </View>
       )}
-      <FlatList data={album.pictures} numColumns={3} renderItem={renderItem} />
-      <FloatingButton album={album} />
+      <FlatList data={album?.pictures} numColumns={3} renderItem={renderItem} />
+      <FloatingButton albumId={albumId} />
       {Boolean(picture) && (
         <PictureModal
           open={modalPicture}

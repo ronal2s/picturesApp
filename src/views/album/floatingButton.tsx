@@ -2,21 +2,20 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import AddIcon from '../../../assets/icons/camera.svg';
 
-import colors from '../../utils/colors';
-import {dimensions} from '../../utils/helpers';
-import Spacer from '../../components/spacer';
-import {AlbumType} from '../../utils/realm/schemas';
 import {useNavigation} from '@react-navigation/native';
+import Spacer from '../../components/spacer';
+import colors from '../../utils/colors';
 import Views from '../../utils/enums/views';
+import {dimensions} from '../../utils/helpers';
 
 const SIZE = 70;
 const ICON_SIZE = 30;
 
-function FloatingButton({album}: {album: AlbumType}) {
+function FloatingButton({albumId}: {albumId: number}) {
   const navigation = useNavigation<any>();
 
   const onPress = () => {
-    navigation.navigate(Views.Camera, {albumId: album._id});
+    navigation.navigate(Views.Camera, {albumId});
   };
 
   return (

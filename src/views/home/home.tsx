@@ -23,7 +23,7 @@ function Home() {
   };
 
   const openAlbum = async (album: AlbumType) => {
-    navigation.navigate(Views.Album, {album});
+    navigation.navigate(Views.Album, {albumId: album._id});
   };
 
   const renderItem = ({index, item}: {index: number; item: AlbumType}) => {

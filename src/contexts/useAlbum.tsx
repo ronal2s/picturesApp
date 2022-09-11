@@ -60,10 +60,8 @@ export function AlbumProvider({children}: {children: React.ReactNode}) {
         const pictures = realm
           ?.objects(Collections.Pictures)
           .filtered(`albumId = ${album._id}`) as any as PicturesType[];
-        // console.log('keys:', JSON.stringify(pictures).substring(0, 100));
-        // console.log('keys:', pictures);
+
         if (pictures.length) {
-          console.log('dentro');
           album.frontPictureBase64 = pictures[0].pictureBase64;
           album.pictures = pictures;
         }
