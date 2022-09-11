@@ -80,6 +80,7 @@ function Login() {
             label="Password"
             value={password}
             onChangeText={setPassword}
+            isPassword
           />
           <Spacer vertical={10} />
           <MyButton
@@ -101,7 +102,6 @@ function Login() {
 
 const styles = StyleSheet.create({
   keyboardView: {
-    // backgroundColor: colors.primary,
     flex: 1,
   },
   title: {

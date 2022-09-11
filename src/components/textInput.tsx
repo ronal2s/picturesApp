@@ -5,6 +5,7 @@ type MyTextInputProps = {
   label?: string;
   placeholder?: string;
   value?: string;
+  isPassword?: boolean;
   onChangeText?: (text: string) => void;
 };
 function MyTextInput({
@@ -12,6 +13,7 @@ function MyTextInput({
   value,
   placeholder,
   onChangeText,
+  isPassword = false,
 }: MyTextInputProps) {
   return (
     <View>
@@ -22,6 +24,7 @@ function MyTextInput({
         style={styles.input}
         placeholder={placeholder}
         autoCapitalize={'none'}
+        secureTextEntry={isPassword}
         onChangeText={onChangeText}
       />
     </View>
