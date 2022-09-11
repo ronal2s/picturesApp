@@ -40,10 +40,14 @@ function Login() {
         Alert.alert('Username or password are incorrect');
       }
     } else {
-      const response = await createUser(user, password);
-      if (response) {
-        goHome();
+      const exists = await userExists(user, password);
+      let response = null;
+      if (!exists) {
+        response = await createUser(user, password);
         Alert.alert('User created');
+      }
+      if (response || exists) {
+        goHome();
       }
     }
   };
