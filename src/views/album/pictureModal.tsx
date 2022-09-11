@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import colors from '../../utils/colors';
 import {dimensions} from '../../utils/helpers';
@@ -23,6 +23,13 @@ function PictureModal({open, onClose, picture}: PictureModalProps) {
           source={{uri: picture.pictureBase64}}
           style={[StyleSheet.absoluteFill, styles.picture]}
         />
+        {Boolean(picture.latitude) && (
+          <View style={styles.locationContainer}>
+            <Text style={styles.text}>
+              {picture.latitude}, {picture.longitude}
+            </Text>
+          </View>
+        )}
       </View>
     </ReactNativeModal>
   );
@@ -40,8 +47,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.inputLabel,
   },
+  text: {
+    color: 'white',
+    textAlign: 'center',
+  },
   picture: {
     borderRadius: 10,
+  },
+  locationContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: -20,
   },
 });
 

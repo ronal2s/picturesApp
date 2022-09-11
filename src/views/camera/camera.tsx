@@ -1,5 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
+import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import {
   Alert,
   Button,
@@ -36,17 +37,31 @@ function CameraView() {
 
   const [cameraPermission, setCameraPermissions] =
     useState<CameraPermissionRequestResult>();
+  const [locationPermission, setLocationPermission] =
+    useState<Geolocation.AuthorizationResult>();
 
   const [takenPictureUrl, setTakenPictureUrl] = useState<string>();
   const [takenPictureBase64Url, setTakenPictureBase64Url] = useState<string>();
+  const [position, setPosition] = useState<GeoPosition>();
 
   useEffect(() => {
+    Geolocation.requestAuthorization('whenInUse').then(result => {
+      setLocationPermission(result);
+    });
+
     requestPermissions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    Geolocation.getCurrentPosition(result => {
+      setPosition(result);
+    });
+  }, [locationPermission]);
+
   const requestPermissions = async () => {
     const permissions = await Camera.requestCameraPermission();
+
     setCameraPermissions(permissions);
     if (cameraPermission === 'denied') {
       Alert.alert(
@@ -73,9 +88,6 @@ function CameraView() {
       const base64image = await RNFS.readFile(photo.path, 'base64');
       setTakenPictureUrl(photo.path);
       setTakenPictureBase64Url(`data:image/jpeg;base64,${base64image}`);
-
-      //   const blob = await getBlob(photo?.path);
-      //   console.log({blob});
     }
   };
 
@@ -85,8 +97,8 @@ function CameraView() {
         _id: +new Date(),
         albumId,
         pictureBase64: takenPictureBase64Url as string,
-        latitude: 0,
-        longitude: 0,
+        latitude: position?.coords.latitude || 0,
+        longitude: position?.coords.altitude || 0,
       });
       navigation.goBack();
     } catch (error) {
