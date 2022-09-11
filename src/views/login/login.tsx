@@ -6,6 +6,7 @@ import MyButton from '../../components/button';
 import DimissKeyboardView from '../../components/dimissKeyboardView';
 import Spacer from '../../components/spacer';
 import MyTextInput from '../../components/textInput';
+import {useUser} from '../../contexts/useUser';
 import colors from '../../utils/colors';
 import Keys from '../../utils/enums/keys';
 import Views from '../../utils/enums/views';
@@ -15,9 +16,10 @@ import LoginLogo from './loginLogo';
 
 function Login() {
   const navigation = useNavigation<any>();
+  const {setUser} = useUser();
   const [signInMode, setSignInMode] = useState(true);
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUsername] = useState('ronal2s');
+  const [password, setPassword] = useState('123');
 
   const onContinue = async () => {
     if (!user || !password) {
@@ -25,10 +27,10 @@ function Login() {
     }
     if (signInMode) {
       const exists = await userExists(user, password);
-      console.log({exists});
       if (exists) {
         // Alert.alert('Login!');
         saveKeyValue(Keys.CurrentUser, user);
+        setUser(user);
         navigation.replace(Views.Home);
       } else {
         Alert.alert('Username or password are incorrect');
@@ -67,7 +69,7 @@ function Login() {
             label="Username"
             value={user}
             onChangeText={text => {
-              setUser(text.replace(/\s/g, ''));
+              setUsername(text.replace(/\s/g, ''));
             }}
           />
           <MyTextInput

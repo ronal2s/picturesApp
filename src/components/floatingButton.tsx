@@ -4,7 +4,7 @@ import AddIcon from '../../assets/icons/add.svg';
 
 import colors from '../utils/colors';
 
-function FloatingButton({text, onPress}: {text: string; onPress: () => void}) {
+function FloatingButton({text, onPress}: {text?: string; onPress: () => void}) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <AddIcon width={20} height={20} />

@@ -5,8 +5,8 @@ class Pictures extends Realm.Object {}
 Pictures.schema = {
   name: 'Pictures',
   properties: {
-    _id: 'number',
-    albumId: 'number',
+    _id: 'int',
+    albumId: 'int',
     pictureBase64: 'string',
     latitude: 'float',
     longitude: 'float',
@@ -19,7 +19,7 @@ class Album extends Realm.Object {}
 Album.schema = {
   name: 'Album',
   properties: {
-    _id: 'number',
+    _id: 'int',
     user: 'string',
     name: 'string',
   },
@@ -36,7 +36,17 @@ type AlbumType = {
   _id: number;
   user: string;
   name: string;
+  frontPictureBase64?: string;
+  pictures?: PicturesType[];
 };
 
-export type {AlbumType};
+type PicturesType = {
+  _id: number;
+  albumId: number;
+  pictureBase64: string;
+  latitude: string;
+  longitude: string;
+};
+
+export type {AlbumType, PicturesType};
 export default databaseOptions;

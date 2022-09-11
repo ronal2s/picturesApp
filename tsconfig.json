@@ -6,6 +6,6 @@
 
     /* Completeness */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-    "include": ["custom.d.ts"]
+    "include": ["custom.d.ts",  "./src/ts/**/*"]
   }
 }

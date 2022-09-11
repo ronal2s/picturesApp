@@ -1,6 +1,6 @@
 enum Collections {
-  Album = 'album',
-  Pictures = 'pictures',
+  Album = 'Album',
+  Pictures = 'Pictures',
 }
 
 export default Collections;

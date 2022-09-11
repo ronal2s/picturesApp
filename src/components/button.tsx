@@ -24,7 +24,7 @@ function MyButton({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 10,
     alignItems: 'center',
   },

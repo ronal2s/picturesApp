@@ -1,6 +1,8 @@
 enum Views {
-  Login = 'login',
-  Home = 'home',
+  Login = 'Login',
+  Home = 'Home',
+  Loading = 'Loading',
+  Album = 'Album',
 }
 
 export default Views;

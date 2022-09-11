@@ -18,7 +18,6 @@ async function getUserList(): Promise<Array<{user: string; pin: string}>> {
   try {
     const list = await EncryptedStorage.getItem(Keys.UserList);
     if (list !== undefined) {
-      console.log({list});
       return JSON.parse(list as string);
     }
     return [];
@@ -60,7 +59,7 @@ async function getCurrentUser() {
   try {
     return await EncryptedStorage.getItem(Keys.CurrentUser);
   } catch (error) {
-    return false;
+    return null;
   }
 }
 
