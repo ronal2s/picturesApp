@@ -9,7 +9,6 @@ import Spacer from '../../components/spacer';
 import {useAlbum} from '../../contexts/useAlbum';
 import {useUser} from '../../contexts/useUser';
 import colors from '../../utils/colors';
-import Keys from '../../utils/enums/keys';
 import Views from '../../utils/enums/views';
 import {AlbumType} from '../../utils/realm/schemas';
 import AddAlbumModal from './addAlbumModal';

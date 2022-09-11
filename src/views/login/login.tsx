@@ -46,7 +46,6 @@ function Login() {
         Alert.alert('User created');
       }
     }
-    // navigation.navigate(Views.Home);
   };
 
   const onChangeMode = () => {

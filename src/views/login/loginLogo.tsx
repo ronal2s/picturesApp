@@ -1,6 +1,5 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-// import SampleLogo from '../../../assets/login/sample-logo2.png';
 import SampleLogo from '../../../assets/login/lens.png';
 
 function LoginLogo() {
@@ -14,7 +13,6 @@ function LoginLogo() {
 const SIZE = 100;
 const styles = StyleSheet.create({
   box: {
-    // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     width: SIZE,
     height: SIZE,
     backgroundColor: 'white',

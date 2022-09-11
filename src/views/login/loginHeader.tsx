@@ -9,13 +9,10 @@ function LoginHeader({color = colors.secondary}: {color?: string}) {
 }
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: colors.secondary,
     position: 'absolute',
     top: 0,
     height: dimensions.height,
     width: dimensions.width,
-    // borderBottomEndRadius: 50,
-    // borderBottomStartRadius: 50,
     transform: [{skewY: '45deg'}],
   },
 });
