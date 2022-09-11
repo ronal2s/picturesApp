@@ -1,16 +1,19 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import AlbumCard from '../../components/album';
+import AlbumCard from '../../components/albumCard';
 import NewAlbumButton from '../../components/newAlbum';
 import Spacer from '../../components/spacer';
 import {useAlbum} from '../../contexts/useAlbum';
+import Views from '../../utils/enums/views';
 import {AlbumType} from '../../utils/realm/schemas';
 import AddAlbumModal from './addAlbumModal';
 
 function Home() {
-  const {addAlbum, albums} = useAlbum();
+  const navigation = useNavigation<any>();
+  const {albums} = useAlbum();
   const [modalAlbum, setModalAlbum] = useState(false);
-  console.log('Albums: ', albums);
+
   const openModal = () => {
     setModalAlbum(true);
   };
@@ -18,22 +21,13 @@ function Home() {
   const closeModal = () => {
     setModalAlbum(false);
   };
-  // useEffect(() => {
-  //   const albums = getAlbums();
-  //   console.log({albums: albums[0]});
-  // }, []);
 
-  const onPress = async () => {
-    // const test = await addAlbum({
-    //   _id: +new Date(),
-    //   name: 'test',
-    //   user: 'ronal2s',
-    // });
-    // console.log({test});
+  const openAlbum = async (album: AlbumType) => {
+    navigation.navigate(Views.Album, {album});
   };
 
   const renderItem = ({item}: {item: AlbumType}) => {
-    return <AlbumCard key={item._id} album={item} />;
+    return <AlbumCard key={item._id} album={item} onPress={openAlbum} />;
   };
 
   return (
@@ -45,9 +39,7 @@ function Home() {
         numColumns={3}
         ListFooterComponent={<NewAlbumButton onPress={openModal} />}
       />
-      {/* <NewAlbumButton onPress={openModal} /> */}
       <AddAlbumModal open={modalAlbum} onClose={closeModal} />
-      {/* <FloatingButton onPress={onPress} /> */}
     </View>
   );
 }

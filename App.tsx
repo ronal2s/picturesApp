@@ -4,6 +4,7 @@ import React from 'react';
 import {AlbumProvider} from './src/contexts/useAlbum';
 import {UserProvider} from './src/contexts/useUser';
 import Views from './src/utils/enums/views';
+import Album from './src/views/album/album';
 import Home from './src/views/home/home';
 import Loading from './src/views/loading/loading';
 import Login from './src/views/login/login';
@@ -29,6 +30,11 @@ const App = () => {
             <Stack.Screen
               name={Views.Home}
               component={Home}
+              // options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name={Views.Album}
+              component={Album}
               // options={{headerShown: false}}
             />
           </Stack.Navigator>

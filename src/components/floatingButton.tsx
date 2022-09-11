@@ -1,29 +1,41 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import AddIcon from '../../assets/icons/add.svg';
+import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import AddIcon from '../../assets/icons/camera.svg';
 
 import colors from '../utils/colors';
+import {dimensions} from '../utils/helpers';
+import Spacer from './spacer';
 
-function FloatingButton({text, onPress}: {text?: string; onPress: () => void}) {
+const SIZE = 70;
+const ICON_SIZE = 30;
+
+function FloatingButton({onPress}: {onPress?: () => void}) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <AddIcon width={20} height={20} />
-    </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <AddIcon fill="white" width={ICON_SIZE} height={ICON_SIZE} />
+        <Spacer horizontal={5} />
+        <Text style={styles.text}>Take picture</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: dimensions.width,
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+  },
   button: {
     backgroundColor: colors.primary,
-    width: 50,
-    height: 50,
-    position: 'absolute',
-    borderRadius: 50,
-    top: 10,
+    width: SIZE * 2.2,
+    height: SIZE - 10,
+    borderRadius: SIZE / 2,
     alignItems: 'center',
     justifyContent: 'center',
-    // right: 10,
-    // bottom: 0,
+    flexDirection: 'row',
   },
   text: {
     color: 'white',
