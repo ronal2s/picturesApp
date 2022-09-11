@@ -1,29 +1,25 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import AddIcon from '../../../assets/icons/camera.svg';
 
-import {useNavigation} from '@react-navigation/native';
-import Spacer from '../../components/spacer';
-import colors from '../../utils/colors';
-import Views from '../../utils/enums/views';
-import {dimensions} from '../../utils/helpers';
+import colors from '../utils/colors';
+import {dimensions} from '../utils/helpers';
+import Spacer from './spacer';
 
 const SIZE = 70;
-const ICON_SIZE = 30;
 
-function FloatingButton({albumId}: {albumId: number}) {
-  const navigation = useNavigation<any>();
+type FloatingButtonProps = {
+  onPress: () => void;
+  icon: any;
+  text: string;
+};
 
-  const onPress = () => {
-    navigation.navigate(Views.Camera, {albumId});
-  };
-
+function FloatingButton({onPress, icon, text}: FloatingButtonProps) {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <AddIcon fill="white" width={ICON_SIZE} height={ICON_SIZE} />
-        <Spacer horizontal={5} />
-        <Text style={styles.text}>Open camera</Text>
+        {Boolean(icon) && icon}
+        {Boolean(icon) && <Spacer horizontal={5} />}
+        <Text style={styles.text}>{text}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

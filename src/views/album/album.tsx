@@ -12,10 +12,13 @@ import {useAlbum} from '../../contexts/useAlbum';
 import colors from '../../utils/colors';
 import {capitalizeText, dimensions} from '../../utils/helpers';
 import {AlbumType, PicturesType} from '../../utils/realm/schemas';
-import FloatingButton from './floatingButton';
+import CameraIcon from '../../../assets/icons/camera.svg';
+import FloatingButton from '../../components/floatingButton';
 import PictureModal from './pictureModal';
+import Views from '../../utils/enums/views';
 
 const BOX_SIZE = dimensions.width * 0.3;
+const ICON_SIZE = 30;
 
 function Album() {
   const navigation = useNavigation<any>();
@@ -48,6 +51,10 @@ function Album() {
     setModalPicture(true);
   };
 
+  const openCamera = () => {
+    navigation.navigate(Views.Camera, {albumId});
+  };
+
   const renderItem = ({item}: {item: PicturesType}) => {
     return (
       <TouchableOpacity onPress={() => openPicture(item)}>
@@ -64,7 +71,11 @@ function Album() {
         </View>
       )}
       <FlatList data={album?.pictures} numColumns={3} renderItem={renderItem} />
-      <FloatingButton albumId={albumId} />
+      <FloatingButton
+        icon={<CameraIcon fill="white" width={ICON_SIZE} height={ICON_SIZE} />}
+        text="Open Camera"
+        onPress={openCamera}
+      />
       {Boolean(picture) && (
         <PictureModal
           open={modalPicture}
