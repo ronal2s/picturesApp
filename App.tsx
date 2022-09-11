@@ -5,6 +5,7 @@ import {AlbumProvider} from './src/contexts/useAlbum';
 import {UserProvider} from './src/contexts/useUser';
 import Views from './src/utils/enums/views';
 import Album from './src/views/album/album';
+import Camera from './src/views/camera/camera';
 import Home from './src/views/home/home';
 import Loading from './src/views/loading/loading';
 import Login from './src/views/login/login';
@@ -27,16 +28,9 @@ const App = () => {
               component={Login}
               options={{headerShown: false}}
             />
-            <Stack.Screen
-              name={Views.Home}
-              component={Home}
-              // options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name={Views.Album}
-              component={Album}
-              // options={{headerShown: false}}
-            />
+            <Stack.Screen name={Views.Home} component={Home} />
+            <Stack.Screen name={Views.Album} component={Album} />
+            <Stack.Screen name={Views.Camera} component={Camera} />
           </Stack.Navigator>
         </NavigationContainer>
       </AlbumProvider>

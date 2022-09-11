@@ -26,19 +26,22 @@ function Home() {
     navigation.navigate(Views.Album, {album});
   };
 
-  const renderItem = ({item}: {item: AlbumType}) => {
-    return <AlbumCard key={item._id} album={item} onPress={openAlbum} />;
+  const renderItem = ({index, item}: {index: number; item: AlbumType}) => {
+    const isLastItem = index === albums.length - 1;
+    return (
+      // eslint-disable-next-line react-native/no-inline-styles
+      <View style={{flexDirection: isLastItem ? 'row' : undefined}}>
+        <AlbumCard key={item._id} album={item} onPress={openAlbum} />
+        {isLastItem && <NewAlbumButton onPress={openModal} />}
+      </View>
+    );
   };
 
   return (
     <View style={styles.container}>
       <Spacer vertical={10} />
-      <FlatList
-        data={albums}
-        renderItem={renderItem}
-        numColumns={3}
-        ListFooterComponent={<NewAlbumButton onPress={openModal} />}
-      />
+      <FlatList data={albums} renderItem={renderItem} numColumns={3} />
+
       <AddAlbumModal open={modalAlbum} onClose={closeModal} />
     </View>
   );
@@ -46,9 +49,7 @@ function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     flex: 1,
-    // backgroundColor: 'red',
   },
 });
 export default Home;

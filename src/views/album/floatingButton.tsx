@@ -5,11 +5,20 @@ import AddIcon from '../../../assets/icons/camera.svg';
 import colors from '../../utils/colors';
 import {dimensions} from '../../utils/helpers';
 import Spacer from '../../components/spacer';
+import {AlbumType} from '../../utils/realm/schemas';
+import {useNavigation} from '@react-navigation/native';
+import Views from '../../utils/enums/views';
 
 const SIZE = 70;
 const ICON_SIZE = 30;
 
-function FloatingButton({onPress}: {onPress?: () => void}) {
+function FloatingButton({album}: {album: AlbumType}) {
+  const navigation = useNavigation<any>();
+
+  const onPress = () => {
+    navigation.navigate(Views.Camera, {albumId: album._id});
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -25,8 +34,8 @@ const styles = StyleSheet.create({
   container: {
     width: dimensions.width,
     position: 'absolute',
-    bottom: 0,
     alignItems: 'center',
+    bottom: 10,
   },
   button: {
     backgroundColor: colors.primary,

@@ -6,11 +6,13 @@ import {useUser} from './useUser';
 
 type AlbumContextType = {
   addAlbum: (album: AlbumType) => void;
+  addPicture: (picture: PicturesType) => void;
   albums: AlbumType[];
 };
 
 export const AlbumContext = createContext<AlbumContextType>({
   addAlbum: () => {},
+  addPicture: () => {},
   albums: [],
 });
 
@@ -37,8 +39,13 @@ export function AlbumProvider({children}: {children: React.ReactNode}) {
 
   const addAlbum = (album: AlbumType) => {
     realm?.write(() => {
-      // return realm.create(Collections.Album, album);
       return realm.create(Collections.Album, album);
+    });
+  };
+
+  const addPicture = (picture: PicturesType) => {
+    realm?.write(() => {
+      return realm.create(Collections.Pictures, picture);
     });
   };
 
@@ -47,22 +54,26 @@ export function AlbumProvider({children}: {children: React.ReactNode}) {
       ?.objects(Collections.Album)
       .filtered(`user = '${user}'`);
     if (albumsObjects?.length) {
-      for (let i = 0; i < albumsObjects?.length; i++) {
-        const album = albumsObjects[i] as any as AlbumType;
+      const albumsWithPictures = [...albumsObjects];
+      for (let i = 0; i < albumsWithPictures.length; i++) {
+        const album = albumsWithPictures[i] as any as AlbumType;
         const pictures = realm
           ?.objects(Collections.Pictures)
-          .filtered(`albumId = '${album._id}'`) as any as PicturesType[];
+          .filtered(`albumId = ${album._id}`) as any as PicturesType[];
+        // console.log('keys:', JSON.stringify(pictures).substring(0, 100));
+        // console.log('keys:', pictures);
         if (pictures.length) {
+          console.log('dentro');
           album.frontPictureBase64 = pictures[0].pictureBase64;
           album.pictures = pictures;
         }
       }
-      setAlbums(albumsObjects as any as AlbumType[]);
+      setAlbums(albumsWithPictures as any as AlbumType[]);
     }
   };
 
   return (
-    <AlbumContext.Provider value={{addAlbum, albums}}>
+    <AlbumContext.Provider value={{addAlbum, addPicture, albums}}>
       {children}
     </AlbumContext.Provider>
   );

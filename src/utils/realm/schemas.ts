@@ -44,8 +44,8 @@ type PicturesType = {
   _id: number;
   albumId: number;
   pictureBase64: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
 };
 
 export type {AlbumType, PicturesType};
