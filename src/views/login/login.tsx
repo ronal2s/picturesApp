@@ -18,26 +18,31 @@ function Login() {
   const navigation = useNavigation<any>();
   const {setUser} = useUser();
   const [signInMode, setSignInMode] = useState(true);
-  const [user, setUsername] = useState('ronal2s');
-  const [password, setPassword] = useState('123');
+  const [user, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const onContinue = async () => {
     if (!user || !password) {
       Alert.alert('Username and password required');
     }
+
+    const goHome = () => {
+      setUser(user);
+      saveKeyValue(Keys.CurrentUser, user);
+      navigation.replace(Views.Home);
+    };
+
     if (signInMode) {
       const exists = await userExists(user, password);
       if (exists) {
-        // Alert.alert('Login!');
-        saveKeyValue(Keys.CurrentUser, user);
-        setUser(user);
-        navigation.replace(Views.Home);
+        goHome();
       } else {
         Alert.alert('Username or password are incorrect');
       }
     } else {
       const response = await createUser(user, password);
       if (response) {
+        goHome();
         Alert.alert('User created');
       }
     }

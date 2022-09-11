@@ -25,11 +25,13 @@ export function AlbumProvider({children}: {children: React.ReactNode}) {
     setupRealm();
     getData();
     if (user) {
-      realm?.addListener('change', () => {
-        console.log('Something changed');
-        getData();
-      });
+      // realm?.removeListener('change', getData);
+      // console.log('user: ', user);
+      realm?.addListener('change', getData);
     }
+    return () => {
+      realm?.removeListener('change', getData);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -67,6 +69,8 @@ export function AlbumProvider({children}: {children: React.ReactNode}) {
         }
       }
       setAlbums(albumsWithPictures as any as AlbumType[]);
+    } else {
+      setAlbums([]);
     }
   };
 

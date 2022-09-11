@@ -55,7 +55,12 @@ function Home() {
   return (
     <View style={styles.container}>
       <Spacer vertical={10} />
-      <FlatList data={albums} renderItem={renderItem} numColumns={3} />
+      <FlatList
+        data={albums}
+        renderItem={renderItem}
+        numColumns={3}
+        ListEmptyComponent={<NewAlbumButton onPress={openModal} />}
+      />
       <FloatingButton
         icon={<LogoutIcon fill="white" width={ICON_SIZE} height={ICON_SIZE} />}
         text="Sign out"

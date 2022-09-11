@@ -41,7 +41,7 @@ function Album() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [albums]);
 
   const closeModal = () => {
     setModalPicture(false);
