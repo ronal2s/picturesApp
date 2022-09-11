@@ -3,16 +3,25 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import colors from '../utils/colors';
 type MyTextInputProps = {
   label?: string;
+  placeholder?: string;
+  value?: string;
   onChangeText?: (text: string) => void;
 };
-function MyTextInput({label, onChangeText}: MyTextInputProps) {
+function MyTextInput({
+  label,
+  value,
+  placeholder,
+  onChangeText,
+}: MyTextInputProps) {
   return (
     <View>
       {Boolean(label) && <Text style={styles.label}>{label}</Text>}
       <View style={styles.spacer} />
       <TextInput
+        value={value}
         style={styles.input}
-        placeholder="Ej: 829 33322 122"
+        placeholder={placeholder}
+        autoCapitalize={'none'}
         onChangeText={onChangeText}
       />
     </View>
