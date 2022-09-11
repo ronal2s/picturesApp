@@ -1,10 +1,10 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import AddIcon from '../../assets/icons/camera.svg';
+import AddIcon from '../../../assets/icons/camera.svg';
 
-import colors from '../utils/colors';
-import {dimensions} from '../utils/helpers';
-import Spacer from './spacer';
+import colors from '../../utils/colors';
+import {dimensions} from '../../utils/helpers';
+import Spacer from '../../components/spacer';
 
 const SIZE = 70;
 const ICON_SIZE = 30;
@@ -15,7 +15,7 @@ function FloatingButton({onPress}: {onPress?: () => void}) {
       <TouchableOpacity style={styles.button} onPress={onPress}>
         <AddIcon fill="white" width={ICON_SIZE} height={ICON_SIZE} />
         <Spacer horizontal={5} />
-        <Text style={styles.text}>Take picture</Text>
+        <Text style={styles.text}>Open camera</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
