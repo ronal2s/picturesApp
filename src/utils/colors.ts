@@ -1,5 +1,6 @@
 const colors = {
   white: 'white',
+  red: '#e74c3c',
   inputBorder: '#DCDCDC',
   inputLabel: '#696969',
   primary: '#68c3a3',

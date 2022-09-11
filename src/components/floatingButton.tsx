@@ -9,14 +9,22 @@ const SIZE = 70;
 
 type FloatingButtonProps = {
   onPress: () => void;
-  icon: any;
+  icon?: any;
   text: string;
+  color?: string;
 };
 
-function FloatingButton({onPress, icon, text}: FloatingButtonProps) {
+function FloatingButton({
+  onPress,
+  icon,
+  text,
+  color = colors.primary,
+}: FloatingButtonProps) {
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity
+        style={{...styles.button, backgroundColor: color}}
+        onPress={onPress}>
         {Boolean(icon) && icon}
         {Boolean(icon) && <Spacer horizontal={5} />}
         <Text style={styles.text}>{text}</Text>
@@ -33,7 +41,6 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   button: {
-    backgroundColor: colors.primary,
     width: SIZE * 2.2,
     height: SIZE - 10,
     borderRadius: SIZE / 2,

@@ -1,18 +1,33 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
+import LogoutIcon from '../../../assets/icons/logout.svg';
 import AlbumCard from '../../components/albumCard';
+import FloatingButton from '../../components/floatingButton';
 import NewAlbumButton from '../../components/newAlbum';
 import Spacer from '../../components/spacer';
 import {useAlbum} from '../../contexts/useAlbum';
+import {useUser} from '../../contexts/useUser';
+import colors from '../../utils/colors';
+import Keys from '../../utils/enums/keys';
 import Views from '../../utils/enums/views';
 import {AlbumType} from '../../utils/realm/schemas';
 import AddAlbumModal from './addAlbumModal';
 
+const ICON_SIZE = 25;
+
 function Home() {
   const navigation = useNavigation<any>();
+  const {user, signOut} = useUser();
   const {albums} = useAlbum();
   const [modalAlbum, setModalAlbum] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      navigation.replace(Views.Login);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const openModal = () => {
     setModalAlbum(true);
@@ -41,7 +56,12 @@ function Home() {
     <View style={styles.container}>
       <Spacer vertical={10} />
       <FlatList data={albums} renderItem={renderItem} numColumns={3} />
-
+      <FloatingButton
+        icon={<LogoutIcon fill="white" width={ICON_SIZE} height={ICON_SIZE} />}
+        text="Sign out"
+        onPress={signOut}
+        color={colors.red}
+      />
       <AddAlbumModal open={modalAlbum} onClose={closeModal} />
     </View>
   );
